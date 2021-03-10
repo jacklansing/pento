@@ -19,7 +19,7 @@
 <%= error_tag f, :description %>
 
 <%= label f, :unit_price %>
-<%= number_input f, :unit_price, step: "any" %>
+<%= number_input f, :unit_price, step: "any", phx_debounce: "blur" %>
 <%= error_tag f, :unit_price %>
 
 <%= label f, :sku %>
@@ -28,6 +28,7 @@
 
 <%= label f, :image %>
 <div phx-drop-target="<%= @uploads.image.ref %>">
+  <p style="border: 1px dashed black;max-width:200px;min-height:150px;display:flex;align-items:center;text-align:center;padding:8px;" onMouseOver="this.style.backgroundColor='#1111110A'" onMouseOut="this.style.backgroundColor='white'">Drag a file to upload here, or click "choose file"</p>
   <%= live_file_input @uploads.image %>
   <%= hidden_input f, :image_upload %>
 </div>
@@ -38,5 +39,12 @@
 <%= for entry <- @uploads.image.entries do %>
   <p>
     <%= entry.client_name %> - <%= entry.progress %>%
+  </p>
+  <button phx-click="cancel-upload" phx-value-ref="<%= entry.ref %>" phx-target="<%= @myself%>">cancel upload</button>
+<% end %>
+
+<%= for {_ref, msg} <- @uploads.image.errors do %>
+  <p ckass="alert alert-danger">
+    <%= error_to_string(msg) %>
   </p>
 <% end %>
