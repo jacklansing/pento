@@ -8,6 +8,11 @@ defmodule Pento.Catalog do
 
   alias Pento.Catalog.Product
 
+  def products_with_average_ratings do
+    Product.Query.with_average_ratings()
+    |> Repo.all()
+  end
+
   def markdown_product(product, new_price) do
     product
     |> Product.decrease_unit_price_changeset(%{unit_price: new_price})
