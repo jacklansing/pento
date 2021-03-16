@@ -2,18 +2,34 @@
   <h1>Survey Results</h1>
 </section>
 
+<section style="display:flex;justify-content:space-between;">
+
+  <form phx-change="age_group_filter" phx-target="<%= @myself %>">
+    <label>Filter by age group:</label>
+    <select name="age_group_filter" id="age_group_filter">
+      <%= for age_group <- ["all", "18 and under", "18 to 25", "25 to 35", "35 and up"] do %>
+        <option value="<%= age_group %>"
+      <%= if @age_group_filter == age_group, do: "selected" %> >
+          <%= age_group %>
+        </option>
+      <% end %>
+    </select>
+  </form>
+
+  <form phx-change="gender_group_filter" phx-target="<%= @myself %>">
+    <label>Filter by gender group:</label>
+    <select name="gender_group_filter" id="gender_group_filter">
+      <%= for gender_group <-  ["all", "female", "male", "other", "prefer not to say"] do %>
+        <option value="<%= gender_group %>"
+        <%= if @gender_group_filter == gender_group, do: "selected" %> >
+          <%= gender_group %>
+        </option>
+      <% end %>
+    </select>
+  </form>
+
+</section>
+
 <div id="survey-results-chart">
   <%= @chart_svg %>
 </div>
-
-<form phx-change="age_group_filter" phx-target="<%= @myself %>">
-  <label>Filter by age group:</label>
-  <select name="age_group_filter" id="age_group_filter">
-    <%= for age_group <- ["all", "18 and under", "18 to 25", "25 to 35", "35 and up"] do %>
-      <option value="<%= age_group %>"
-      <%= if @age_group_filter == age_group, do: "selected" %> >
-        <%= age_group %>
-      </option>
-    <% end %>
-  </select>
-</form>
