@@ -103,6 +103,10 @@ defmodule PentoWeb.SurveyResultsLive do
     end
   end
 
+  defp assign_age_group_filter(%{assigns: %{age_group_filter: age_group_filter}} = socket) do
+    assign(socket, :age_group_filter, age_group_filter)
+  end
+
   defp assign_age_group_filter(socket) do
     socket
     |> assign(:age_group_filter, "all")
@@ -110,6 +114,10 @@ defmodule PentoWeb.SurveyResultsLive do
 
   defp assign_age_group_filter(socket, age_group_filter) do
     assign(socket, :age_group_filter, age_group_filter)
+  end
+
+  defp assign_gender_group_filter(%{assigns: %{gender_filter: gender_filter}} = socket) do
+    assign(socket, :gender_filter, gender_filter)
   end
 
   defp assign_gender_group_filter(socket) do
